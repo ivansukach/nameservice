@@ -79,14 +79,14 @@ type AppModule struct {
 	bankKeeper bank.Keeper
 }
 
-//// NewAppModule creates a new AppModule object
-//func NewAppModule(k keeper.Keeper, bankKeeper bank.Keeper) AppModule {
-//	return AppModule{
-//		AppModuleBasic:      AppModuleBasic{},
-//		keeper:              k,
-//		bankKeeper: bankKeeper,
-//	}
-//}
+// NewAppModule creates a new AppModule object
+func NewAppModule(k keeper.Keeper, bankKeeper bank.Keeper) AppModule {
+	return AppModule{
+		AppModuleBasic: AppModuleBasic{},
+		keeper:         k,
+		bankKeeper:     bankKeeper,
+	}
+}
 
 // Name returns the nameservice module's name.
 func (AppModule) Name() string {

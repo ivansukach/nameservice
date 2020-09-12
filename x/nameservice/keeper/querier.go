@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/types"
+	"github.com/ivansukach/nameservice/x/nameservice/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 

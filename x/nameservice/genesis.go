@@ -3,8 +3,6 @@ package nameservice
 import (
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	//abci "github.com/tendermint/tendermint/abci/types"
-	//"github.com/ivansukach/namesevice/x/nameservice/types"
 )
 
 type GenesisState struct {
