@@ -8,18 +8,18 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/types"
+	"github.com/ivansukach/nameservice/x/nameservice/types"
 )
 
 // Keeper of the nameservice store
 type Keeper struct {
-	CoinKeeper	types.BankKeeper
+	CoinKeeper types.BankKeeper
 	storeKey   sdk.StoreKey
 	cdc        *codec.Codec
 }
 
 func (k Keeper) SetWhois(ctx sdk.Context, name string, whois types.Whois) {
-	if whois.Owner.Empty(){
+	if whois.Owner.Empty() {
 		return
 	}
 	store := ctx.KVStore(k.storeKey)
@@ -105,4 +105,3 @@ func NewKeeper(cdc *codec.Codec, storeKey sdk.StoreKey, coinKeeper types.BankKee
 		CoinKeeper: coinKeeper,
 	}
 }
-

@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"path"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/keys"
@@ -17,22 +14,21 @@ import (
 	authrest "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
-
+	app "github.com/cosmos/sdk-tutorials/nameservice"
+	_ "github.com/ivansukach/nameservice/app"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-
 	"github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
-
-	"github.com/ivansukach/nameservice/app"
-
+	"log"
+	"os"
+	"path"
 )
 
 func main() {
 	// Configure cobra to sort commands
 	cobra.EnableCommandSorting = false
-
-	// Instantiate the codec for the command line application
+	//Instantiate the codec for the command line application
 	cdc := app.MakeCodec()
 
 	// Read in the configuration file for the sdk
@@ -47,8 +43,8 @@ func main() {
 	// with the cdc
 
 	rootCmd := &cobra.Command{
-		Use:   "appcli",
-		Short: "Command line interface for interacting with appd",
+		Use:   "nscli",
+		Short: "Command line interface for interacting with nsd",
 	}
 
 	// Add --chain-id to persistent flags and mark it required
@@ -150,6 +146,7 @@ func registerRoutes(rs *lcd.RestServer) {
 }
 
 func initConfig(cmd *cobra.Command) error {
+	log.Println("INITIALIZATION")
 	home, err := cmd.PersistentFlags().GetString(cli.HomeFlag)
 	if err != nil {
 		return err

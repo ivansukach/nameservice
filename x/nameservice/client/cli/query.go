@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"strings"
+	//"strings"
 
 	"github.com/spf13/cobra"
 
@@ -10,13 +10,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	//sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ivansukach/namesevice/x/nameservice/types"
+	"github.com/ivansukach/nameservice/x/nameservice/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
-func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	// Group nameservice queries under a subcommand
 	nameserviceQueryCmd := &cobra.Command{
 		Use:                        types.ModuleName,

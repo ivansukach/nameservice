@@ -2,6 +2,8 @@ package nameservice
 
 import (
 	"encoding/json"
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/ivansukach/nameservice/x/nameservice/types"
 
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
@@ -12,15 +14,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/ivansukach/namesevice/x/nameservice/client/cli"
-	"github.com/ivansukach/namesevice/x/nameservice/client/rest"
-	"github.com/ivansukach/namesevice/x/nameservice/keeper"
+	"github.com/ivansukach/nameservice/x/nameservice/client/cli"
+	"github.com/ivansukach/nameservice/x/nameservice/client/rest"
+	"github.com/ivansukach/nameservice/x/nameservice/keeper"
 )
 
 // Type check to ensure the interface is properly implemented
 var (
-	_ module.AppModule           = AppModule{}
-	_ module.AppModuleBasic      = AppModuleBasic{}
+	_ module.AppModule      = AppModule{}
+	_ module.AppModuleBasic = AppModuleBasic{}
 )
 
 // AppModuleBasic defines the basic application module used by the nameservice module.
@@ -54,7 +56,7 @@ func (AppModuleBasic) ValidateGenesis(bz json.RawMessage) error {
 
 // RegisterRESTRoutes registers the REST routes for the nameservice module.
 func (AppModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router) {
-	rest.RegisterRoutes(ctx, rtr)
+	rest.RegisterRoutes(ctx, rtr, StoreKey)
 }
 
 // GetTxCmd returns the root tx command for the nameservice module.
@@ -73,18 +75,18 @@ func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
-	// TODO: Add keepers that your application depends on
+	keeper     keeper.Keeper
+	bankKeeper bank.Keeper
 }
 
-// NewAppModule creates a new AppModule object
-func NewAppModule(k keeper.Keeper, /*TODO: Add Keepers that your application depends on*/) AppModule {
-	return AppModule{
-		AppModuleBasic:      AppModuleBasic{},
-		keeper:              k,
-		// TODO: Add keepers that your application depends on
-	}
-}
+//// NewAppModule creates a new AppModule object
+//func NewAppModule(k keeper.Keeper, bankKeeper bank.Keeper) AppModule {
+//	return AppModule{
+//		AppModuleBasic:      AppModuleBasic{},
+//		keeper:              k,
+//		bankKeeper: bankKeeper,
+//	}
+//}
 
 // Name returns the nameservice module's name.
 func (AppModule) Name() string {
@@ -111,7 +113,7 @@ func (AppModule) QuerierRoute() string {
 
 // NewQuerierHandler returns the nameservice module sdk.Querier.
 func (am AppModule) NewQuerierHandler() sdk.Querier {
-	return types.NewQuerier(am.keeper)
+	return NewQuerier(am.keeper)
 }
 
 // InitGenesis performs genesis initialization for the nameservice module. It returns

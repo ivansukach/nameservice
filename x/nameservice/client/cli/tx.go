@@ -14,7 +14,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/ivansukach/namesevice/x/nameservice/types"
+	"github.com/ivansukach/nameservice/x/nameservice/types"
 )
 
 // GetTxCmd returns the transaction commands for this module
